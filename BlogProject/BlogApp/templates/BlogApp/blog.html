@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+  <body>
+    <h1>This Blog User</h1>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <table class="table table-hover">
+        <thead>
+          </tr>
+            <th scope="col">Blog Name</th>
+            <th scope="col">Total Comment</th>
+            <th scope="col">Total Dislike</th>
+            <th scope="col">Total Likes</th>
+        </tr>
+        </thead>
+        <tbody id ="tbody">
+          
+            
+        </tbody>
+     </table>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script>
+        $(document).ready(function(){
+            //var authorName = {{name}};
+            //console.log(authorName)
+            var temp,temp1,temp2,temp  ="";
+            var authorId = $('h1').text();
+            var author_id = parseInt(authorId);
+            setInterval(function(){
+                $.ajax({
+                    type:"GET",
+                    url: "{% url 'specific_author_data' author_id %}",
+                    dataType: "json",
+                    success:function(response){
+                        x = response.blogs
+                        console.log(response.blogs);
+                        $('#tbody').empty();
+                        for(var i=0;i<x.length;i++){
+                          temp = "<tr><td>"+ x[i].blog_name + "</td><td>" + x[i].total_comments + "</td><td>" + x[i].total_dislike + "</td><td>" +  x[i].total_likes + "</td>";
+
+                          $('#tbody').append(temp);  
+                        }
+                        
+                        
+
+                    },
+                    error:function(response){
+                        //alert("an error occur");
+                        console.log(response);
+                    }
+
+                });
+            },1000);
+            
+        });
+    </script>
+
+    
+  </body>
+</html>

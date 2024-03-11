@@ -1,0 +1,31 @@
+{% comment %} {% extends "BlogApp/base.html" %}
+
+
+{% block title%} 
+
+Test Document
+
+{% endblock title%}
+
+{% block content%} 
+    <h1>THis is inside content</h1>
+    <h2>This is top comments of blogs</h2>
+    <ul>
+    {% for comment in comments %}
+        <li>{{comment.name}}</li>
+    {% endfor %}
+    </ul>
+    <h1>THis is liked field</h1>
+    <ul>
+    {% for like in liked %}
+        <li>{{like.name}}</li>
+    {% endfor %}
+    </ul>
+    <h1>THis is disliked field</h1>
+    <ul>
+    {% for dislike in diliked %}
+        <li>{{dislike.name}}</li>
+    {% endfor %}
+    </ul>
+        
+{% endblock content%} {% endcomment %}
